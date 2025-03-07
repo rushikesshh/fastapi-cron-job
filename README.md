@@ -14,7 +14,7 @@ This project is a FastAPI-based web application that provides API endpoints for 
 ├── scheduler.py        # Cron job setup for periodic logging
 ├── README.md           # Project documentation
 ├── logs/               # Directory where cron job logs are stored
-│   ├── cron.log        # Log file for scheduled jobs
+│   ├── scheduler.log        # Log file for scheduled jobs
 ```
 
 ## Features
@@ -22,9 +22,9 @@ This project is a FastAPI-based web application that provides API endpoints for 
 - **Pydantic Models**: Ensures request validation and meaningful error messages for incorrect inputs.
 - **Filterable API**: Allows filtering results using query parameters.
   - Supports multiple filters (e.g., gender and age_group can be used together).
-  - Example: `?gender=male,female&age_group=18-30` filters results for both male and female in the 18-30 age group.
+  - Example: `?gender=Male,Female&age_group=18-30` filters results for both male and female in the 18-30 age group.
 - **Async Cron Job**: Runs a periodic task every 6 hours to log timestamps.
-- **Automatic Logging**: Logs job execution details to a `.log` file.
+- **Automatic Logging**: Logs job execution details to a `scheduler.log` file.
 
 ---
 
@@ -79,17 +79,6 @@ Once the server is running, you can test the API using Swagger UI at:
 http://localhost:8000/docs
 ```
 
----
-
-## API Filtering
-You can filter API results using multiple query parameters. Example:
-```
-http://localhost:8000/data?date=2025-03-07&region=US&device_type=mobile
-```
-- **Multiple Filters Supported**: You can use multiple filters in a single query.
-  - Example: `?gender=male,female&age_group=18-30` filters results for both male and female in the 18-30 age group.
-
----
 
 ## Async Cron Job Setup
 This project includes an asynchronous cron job that runs every 6 hours, logging execution timestamps automatically. The logs are saved in the `logs/cron.log` file.
@@ -102,12 +91,12 @@ This project includes an asynchronous cron job that runs every 6 hours, logging 
 ### Log File Location:
 The cron job logs are stored in:
 ```
-logs/cron.log
+logs/scheduler.log
 ```
 Ensure the `logs/` directory exists before running the project.
 
 ---
 
 ## Conclusion
-This FastAPI project is structured to provide a robust and efficient API service with data validation, logging, and periodic job execution. Follow the setup steps to test it locally, and use the API for data retrieval with filtering capabilities. Happy coding! 🚀
+This FastAPI project is structured to provide a robust and efficient API service with data validation, logging, and periodic job execution. Follow the setup steps to test it locally, and use the API for data retrieval with filtering capabilities.
 
