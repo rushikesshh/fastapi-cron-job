@@ -13,6 +13,8 @@ This project is a FastAPI-based web application that provides API endpoints for 
 ├── requirements.txt    # Required dependencies
 ├── scheduler.py        # Cron job setup for periodic logging
 ├── README.md           # Project documentation
+├── logs/               # Directory where cron job logs are stored
+│   ├── cron.log        # Log file for scheduled jobs
 ```
 
 ## Features
@@ -90,12 +92,19 @@ http://localhost:8000/data?date=2025-03-07&region=US&device_type=mobile
 ---
 
 ## Async Cron Job Setup
-This project includes an asynchronous cron job that runs every 6 hours, logging execution timestamps automatically. The logs are saved in a `.log` file.
+This project includes an asynchronous cron job that runs every 6 hours, logging execution timestamps automatically. The logs are saved in the `logs/cron.log` file.
 
 ### Sample Log Entry:
 ```
 2025-03-08 00:38:25 - INFO - Async Cron Job Executed Successfully at 2025-03-08 00:38:25
 ```
+
+### Log File Location:
+The cron job logs are stored in:
+```
+logs/cron.log
+```
+Ensure the `logs/` directory exists before running the project.
 
 ---
 
