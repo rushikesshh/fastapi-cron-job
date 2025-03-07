@@ -1,0 +1,10 @@
+faker
+pandas
+urllib
+fastapi
+uvicorn
+pydantic
+psycopg2
+openpyxl
+sqlalchemy
+apschedular
