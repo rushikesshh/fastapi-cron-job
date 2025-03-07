@@ -19,6 +19,8 @@ This project is a FastAPI-based web application that provides API endpoints for 
 - **Data Generation**: Generates 1000 records in PostgreSQL database.
 - **Pydantic Models**: Ensures request validation and meaningful error messages for incorrect inputs.
 - **Filterable API**: Allows filtering results using query parameters.
+  - Supports multiple filters (e.g., gender and age_group can be used together).
+  - Example: `?gender=male,female&age_group=18-30` filters results for both male and female in the 18-30 age group.
 - **Async Cron Job**: Runs a periodic task every 6 hours to log timestamps.
 - **Automatic Logging**: Logs job execution details to a `.log` file.
 
@@ -78,10 +80,12 @@ http://localhost:8000/docs
 ---
 
 ## API Filtering
-You can filter API results using query parameters. Example:
+You can filter API results using multiple query parameters. Example:
 ```
 http://localhost:8000/data?date=2025-03-07&region=US&device_type=mobile
 ```
+- **Multiple Filters Supported**: You can use multiple filters in a single query.
+  - Example: `?gender=male,female&age_group=18-30` filters results for both male and female in the 18-30 age group.
 
 ---
 
