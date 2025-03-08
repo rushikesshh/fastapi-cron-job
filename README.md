@@ -9,7 +9,7 @@ This project is a FastAPI-based web application that provides API endpoints for 
 ├── db_connection.py    # Handles database connection
 ├── generate_data.py    # Script to generate initial test data (1000 records)
 ├── main.py             # Main FastAPI application
-├── models.py           # Pydantic models for request validation
+├── model.py           # Pydantic model for request validation
 ├── requirements.txt    # Required dependencies
 ├── scheduler.py        # Cron job setup for periodic logging
 ├── README.md           # Project documentation
