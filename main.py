@@ -20,13 +20,8 @@ def read_root():
 
 @app.get("/fetch-data/")
 def fetch_data(params: QueryParams = Depends()):
-    """
-    Fetch data from fact_ad_metrics_daily with optional filters.
-    All filters support multiple selections.
-    """
     params.validate_dates()
 
-    # Parse comma-separated strings into lists of strings
     region_list = parse_comma_separated_string(params.region)
     age_group_list = parse_comma_separated_string(params.age_group)
     gender_list = parse_comma_separated_string(params.gender)
@@ -90,13 +85,11 @@ def fetch_data(params: QueryParams = Depends()):
         params_list.append(device_type_list)
 
     try:
-        cursor.execute(query, params_list)
-        data = cursor.fetchall()
+        with conn.cursor() as cursor:  
+            cursor.execute(query, params_list)
+            data = cursor.fetchall()
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Database error: {str(e)}")
-    finally:
-        cursor.close()
-    
 
     result = [
         {
@@ -117,6 +110,8 @@ def fetch_data(params: QueryParams = Depends()):
     ]
 
     return {"data": result}
+
+
 
 
 @app.on_event("shutdown")
