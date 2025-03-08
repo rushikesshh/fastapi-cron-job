@@ -107,6 +107,9 @@ http://localhost:8000/docs
 | **placement**  | Ad placement                   | `Feed`, `Stories`, `Search`, `Sidebar` |
 | **device_type** | Device type used               | `Mobile`, `Desktop`, `Tablet` |
 
+####  Notes:
+The tabel will generate data from 2023-01-01 till 2023-01-31
+
 
 ## Async Cron Job Setup
 This project includes an asynchronous cron job that runs every 6 hours, logging execution timestamps automatically. The logs are saved in the `logs/scheduler.log` file.
