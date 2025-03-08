@@ -33,19 +33,36 @@ class QueryParams(BaseModel):
     device_type: Optional[str] = Field(None, description="Comma-separated device types")
 
     def validate_dates(self):
-        """Ensures that start_date is before end_date."""
-        if self.start_date and self.end_date and self.start_date > self.end_date:
-            raise HTTPException(status_code=400, detail="start_date cannot be after end_date")
+        """Ensures that start_date and end_date follow the correct format and logical order."""
+
+        date_pattern = r"^\d{4}-\d{2}-\d{2}$"
+
         if self.start_date:
-            try:
-                start_date_obj = datetime.strptime(self.start_date, "%Y-%m-%d")
-            except ValueError:
-                raise HTTPException(status_code=400, detail=f"Invalid start_date format: {self.start_date}. Expected format: YYYY-MM-DD.")
+            self.start_date = str(self.start_date)  # Ensure it's a string
+            if not re.fullmatch(date_pattern, self.start_date):
+                raise HTTPException(
+                    status_code=400,
+                    detail=f"Invalid start_date format: {self.start_date}. Expected format: YYYY-MM-DD (e.g., 2023-01-05)"
+                )
+
         if self.end_date:
-            try:
-                end_date_obj = datetime.strptime(self.end_date, "%Y-%m-%d")
-            except ValueError:
-                raise HTTPException(status_code=400, detail=f"Invalid end_date format: {self.end_date}. Expected format: YYYY-MM-DD.")
+            self.end_date = str(self.end_date)  # Ensure it's a string
+            if not re.fullmatch(date_pattern, self.end_date):
+                raise HTTPException(
+                    status_code=400,
+                    detail=f"Invalid end_date format: {self.end_date}. Expected format: YYYY-MM-DD (e.g., 2023-01-05)"
+                )
+
+        if self.start_date and self.end_date:
+            start_date_obj = datetime.strptime(self.start_date, "%Y-%m-%d")
+            end_date_obj = datetime.strptime(self.end_date, "%Y-%m-%d")
+
+            if start_date_obj > end_date_obj:
+                raise HTTPException(
+                    status_code=400, 
+                    detail="start_date cannot be after end_date"
+                )
+            
         
     @field_validator("region")
     @classmethod
