@@ -24,7 +24,7 @@ This project is a FastAPI-based web application that provides API endpoints for 
   - Supports multiple filters (e.g., gender and age_group can be used together).
   - Example: `?gender=Male,Female&age_group=18-30` filters results for both male and female in the 18-30 age group.
 - **Async Cron Job**: Runs a periodic task every 6 hours to log timestamps.
-- **Automatic Logging**: Logs job execution details to a `scheduler.log` file.
+- **Automatic Logging**: Logs job execution details to a `logs/scheduler.log` file.
 
 ---
 
