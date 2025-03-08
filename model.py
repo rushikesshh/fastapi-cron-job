@@ -1,7 +1,7 @@
 from urllib.parse import unquote
 from typing import List, Optional
 from datetime import datetime
-from pydantic import BaseModel, Field, validator
+from pydantic import BaseModel, Field, field_validator
 from fastapi import HTTPException
 
 
@@ -47,7 +47,8 @@ class QueryParams(BaseModel):
             except ValueError:
                 raise HTTPException(status_code=400, detail=f"Invalid end_date format: {self.end_date}. Expected format: YYYY-MM-DD.")
         
-    @validator("region")
+    @field_validator("region")
+    @classmethod
     def validate_region(cls, value):
         """Validates that region contains only allowed values."""
         if value:
@@ -61,7 +62,8 @@ class QueryParams(BaseModel):
                 )
         return value
     
-    @validator("age_group")
+    @field_validator("age_group")
+    @classmethod
     def validate_age_group(cls, value):
         """Validates that age_group contains only allowed values."""
         if value:
@@ -75,7 +77,8 @@ class QueryParams(BaseModel):
                 )
         return value
     
-    @validator("gender")
+    @field_validator("gender")
+    @classmethod
     def validate_gender(cls, value):
         """Validates that gender contains only allowed values."""
         if value:
@@ -89,7 +92,8 @@ class QueryParams(BaseModel):
                 )
         return value
     
-    @validator("platform")
+    @field_validator("platform")
+    @classmethod
     def validate_platform(cls, value):
         """Validates that platform contains only allowed values."""
         if value:
@@ -103,7 +107,8 @@ class QueryParams(BaseModel):
                 )
         return value
     
-    @validator("placement")
+    @field_validator("placement")
+    @classmethod
     def validate_placement(cls, value):
         """Validates that placement contains only allowed values."""
         if value:
@@ -116,3 +121,20 @@ class QueryParams(BaseModel):
                     detail=f"Invalid placements values: {', '.join(invalid_groups)}. Allowed values are: {', '.join(ALLOWED_PLACEMENTS)}"
                 )
         return value
+        
+    @field_validator("device_type")
+    @classmethod
+    def validate_placement(cls, value):
+        """Validates that placement contains only allowed values."""
+        if value:
+            device_types = parse_comma_separated_string(value)
+            ALLOWED_DEVICE_TYPES = ["Mobile", "Desktop", "Tablet"]
+            invalid_groups = [age for age in device_types if age not in ALLOWED_DEVICE_TYPES]
+            if invalid_groups:
+                raise HTTPException(
+                    status_code=400,
+                    detail=f"Invalid device_types values: {', '.join(invalid_groups)}. Allowed values are: {', '.join(ALLOWED_DEVICE_TYPES)}"
+                )
+        return value
+
+
