@@ -74,14 +74,42 @@ uvicorn main:app --reload
 ```
 
 ### Step 7: Access API Documentation
-Once the server is running, you can test the API using Swagger UI at:
+Once the server is running, you can test the API using Swagger UI at on running below URL on my browser:
 ```
 http://localhost:8000/docs
 ```
 
+##  FastAPI Endpoint Testing Guide  
+
+###  How to Test the `/fetch-data/` Endpoint  
+
+#### 🔗 Open API Docs  
+1. Start your FastAPI server.  
+2. Open your browser and visit:  
+   **👉 [http://localhost:8000/docs](http://localhost:8000/docs)**  
+
+#### 🛠 Steps to Test  
+1. Find and click on **`GET /fetch-data/`**.  
+2. Click **"Try it out"**.  
+3. Enter the filter parameters.  
+4. Click **"Execute"** to fetch the filtered data.  
+5. View the response in **JSON format**.  
+
+####  Available Filters  
+| Parameter   | Description                        | Example Values                  |
+|------------|--------------------------------|--------------------------------|
+| **start_date** | Start date (YYYY-MM-DD)         | `2023-01-01`                   |
+| **end_date**   | End date (YYYY-MM-DD)           | `2023-01-31`                   |
+| **region**     | Geographic region              | `East`, `West`, `North`, `South` |
+| **age_group**  | Age group category             | `<18`, `18-25`, `26-35`, `36-50`, `50+` |
+| **gender**     | Gender filter                  | `Male`, `Female`, `Other` |
+| **platform**   | Advertising platform           | `Facebook`, `Google Ads`, `Instagram`, `LinkedIn` |
+| **placement**  | Ad placement                   | `Feed`, `Stories`, `Search`, `Sidebar` |
+| **device_type** | Device type used               | `Mobile`, `Desktop`, `Tablet` |
+
 
 ## Async Cron Job Setup
-This project includes an asynchronous cron job that runs every 6 hours, logging execution timestamps automatically. The logs are saved in the `logs/cron.log` file.
+This project includes an asynchronous cron job that runs every 6 hours, logging execution timestamps automatically. The logs are saved in the `logs/scheduler.log` file.
 
 ### Sample Log Entry:
 ```
